@@ -70,8 +70,8 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
                 case "02n":
                     cardView.setCardBackgroundColor(context.getColor(R.color.weather_few_clouds_dark));
                     break;
-                case "03dd":
-                    cardView.setCardBackgroundColor(context.getColor(R.color.weather_cloudy));
+                case "03d":
+                    cardView.setCardBackgroundColor(context.getColor(R.color.weather_fog));
                     break;
                 case "03n":
                     cardView.setCardBackgroundColor(context.getColor(R.color.weather_cloudy_dark));
@@ -104,6 +104,7 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
                     break;
                 case "50n":
                     cardView.setCardBackgroundColor(context.getColor(R.color.weather_fog_dark));
+                    break;
                 default:
                     cardView.setCardBackgroundColor(context.getColor(R.color.weather_few_clouds));
             }
