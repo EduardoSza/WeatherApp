@@ -44,7 +44,7 @@ public class MainViewModel extends AndroidViewModel {
         handler.postDelayed(fetchRunnable, FETCH_INTERVAL);
     }
 
-    private void fetchAllForecasts() {
+    public void fetchAllForecasts() {
         if (Logger.ISLOGABLE) Logger.d(TAG, "fetchAllForecasts()");
         HashMap<String, String> localizations = mRepository.getLocalizations();
         List<Weather> updatedList = new ArrayList<>();
@@ -55,7 +55,12 @@ public class MainViewModel extends AndroidViewModel {
                 public void onSuccess(Weather result) {
                     updatedList.add(result);
                     if (updatedList.size() == localizations.size()) {
-                        _weatherList.setValue(updatedList);
+                        HashMap<String, Weather> uniqueMap = new HashMap<>();
+                        for (Weather weather : updatedList) {
+                            uniqueMap.put(weather.getName(), weather);
+                        }
+                        List<Weather> uniqueList = new ArrayList<>(uniqueMap.values());
+                        _weatherList.setValue(uniqueList);
                         handler.postDelayed(fetchRunnable, FETCH_INTERVAL);
                     }
                 }
