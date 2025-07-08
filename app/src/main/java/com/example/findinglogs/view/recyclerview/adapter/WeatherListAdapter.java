@@ -3,7 +3,9 @@ package com.example.findinglogs.view.recyclerview.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.service.autofill.OnClickAction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.example.findinglogs.R;
 import com.example.findinglogs.model.model.Weather;
 import com.example.findinglogs.model.util.Logger;
 import com.example.findinglogs.model.util.Utils;
+import com.example.findinglogs.view.DetailsActivity;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -139,7 +142,20 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Weather weather = weathers.get(position);
         holder.holdWeather(weather, context);
+
+        // Clique no card abre nova tela com detalhes
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra("cidade", weather.getName());
+            intent.putExtra("tempAtual", Utils.getCelsiusTemperatureFromKevin(weather.getMain().getTemp()));
+            intent.putExtra("tempMax", Utils.getCelsiusTemperatureFromKevin(weather.getMain().getTemp_max()));
+            intent.putExtra("tempMin", Utils.getCelsiusTemperatureFromKevin(weather.getMain().getTemp_min()));
+            intent.putExtra("pressao", String.valueOf(weather.getMain().getPressure()));
+            intent.putExtra("umidade", String.valueOf(weather.getMain().getHumidity()));
+            context.startActivity(intent);
+        });
     }
+
 
     @Override
     public int getItemCount() {
