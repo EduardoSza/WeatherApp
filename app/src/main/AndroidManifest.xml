@@ -31,5 +31,9 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+        <provider
+            android:name=".model.provider.WeatherHistoryProvider"
+            android:authorities="com.example.findinglogs.provider"
+            android:exported="false" />
     </application>
 </manifest>
